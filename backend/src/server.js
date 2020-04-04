@@ -1,12 +1,20 @@
-const express = require('express');
+const express = require("express");
+const mongoose = require("mongoose");
+const routes = require("./routes");
+
 const app = express();
 
-// respond with "hello world" when a GET request is made to the homepage
-app.get('/', function(req, res) {
-  res.send('hello world');
-});
+mongoose.connect(
+  " mongodb+srv://leogonzaga:bloodhelp@omnistack-ekd7k.mongodb.net/bloodhelp?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+);
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
-  });
-  
+app.use(express.json());
+app.use(routes);
+
+app.listen(3000, function() {
+  console.log("Servidor online!");
+});
