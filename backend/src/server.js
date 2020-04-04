@@ -1,11 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+require('dotenv/config');
 
 const app = express();
 
 mongoose.connect(
-  " mongodb+srv://leogonzaga:bloodhelp@omnistack-ekd7k.mongodb.net/bloodhelp?retryWrites=true&w=majority",
+    process.env.BD_CONNECT,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
