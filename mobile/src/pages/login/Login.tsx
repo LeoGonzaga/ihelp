@@ -33,7 +33,7 @@ const style = StyleSheet.create({
   input: {
     backgroundColor: "#fff",
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 23,
     color: "#B3B6B7"
   },
   button: {
@@ -72,6 +72,13 @@ export default function Login() {
       );
     } else {
       try {
+        if (password.length < 6) {
+          Alert.alert(
+            "Senha inválida!",
+            "Sua senha é muito curta. Por favor, digite uma senha de 8 digitos"
+          );
+        }
+
         let response = await api.post("/createAccount", {
           username,
           email,
