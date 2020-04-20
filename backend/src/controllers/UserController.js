@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 module.exports = {
     async createUser(req, res) {
@@ -26,8 +27,14 @@ module.exports = {
 
         if(!user){
             return res.json({ message: 'Usuário não encontrado' });
-        }
-
-        
+        }else{
+            bcrypt.compare(password, user.password, function (err, result) {
+                if (result === true) {
+                  
+                } else {
+                  return res.json({ message: 'Senha incorreta'});
+                }
+              })
+        }  
     }
 }
