@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,14 +6,14 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Alert
+  Alert,
+  TouchableHighlight
 } from "react-native";
 
 import Swiper from "react-native-swiper";
+import * as Animatable from "react-native-animatable";
 import SwitchAction from "./Components/SwitchAction";
 import { Actions } from "react-native-router-flux";
-import useRegister from "src/Hooks/useRegister";
-import axios from "axios";
 import api from "../../config/api";
 
 const style = StyleSheet.create({
@@ -75,7 +75,7 @@ export default function Login() {
         if (password.length < 6) {
           Alert.alert(
             "Senha inválida!",
-            "Sua senha é muito curta. Por favor, digite uma senha de 8 digitos"
+            "Sua senha é muito curta. Por favor, digite uma senha de 6 digitos"
           );
         }
 
@@ -105,6 +105,32 @@ export default function Login() {
     }
   };
 
+  const loginUser = async (email: string, password: string) => {
+    if (!email || !password) {
+      Alert.alert(
+        "Eita!",
+        "Por favor, confira se os campos estão preenchido e com os dados corretos."
+      );
+    } else {
+      try {
+        let response = await api.post("/login", {
+          email,
+          password
+        });
+        console.log(response);
+
+        // let { _id, message } = response.data;
+        // if (_id) {
+        //   Actions.home();
+        // } else if (message) {
+        //   Alert.alert(message);
+        // }
+
+        Actions.home();
+      } catch (error) {}
+    }
+  };
+
   return (
     <>
       <SwitchAction index={index} />
@@ -117,37 +143,47 @@ export default function Login() {
           setIndex(index);
         }}
       >
-        <KeyboardAvoidingView style={style.container}>
-          <View
+        <KeyboardAvoidingView style={style.container} behavior="padding">
+          <Animatable.View
             style={{
               flex: 1,
               justifyContent: "center",
               alignContent: "center",
               alignItems: "center"
             }}
+            animation="fadeInLeft"
           >
-            <View style={{ marginTop: 20, marginBottom: 10 }}>
-              <Text style={style.textLogo}>iHelp</Text>
+            <View style={{ marginTop: 50, marginBottom: 140 }}>
+              <Animatable.Text animation="fadeIn" style={style.textLogo}>
+                iHelp
+              </Animatable.Text>
             </View>
             <TextInput
               placeholder="username@email.com"
               style={[style.input, style.layout]}
+              onChangeText={value => setEmail(value)}
             ></TextInput>
             <TextInput
               secureTextEntry
               placeholder="***************"
               style={[style.input, style.layout]}
+              onChangeText={value => setPassword(value)}
             ></TextInput>
 
             <TouchableOpacity
               style={[style.button, style.layout, { marginTop: 40 }]}
-              onPress={() => {}}
+              onPress={() => {
+                loginUser(email, password);
+              }}
             >
               <Text style={[style.text, { fontSize: 20, margin: 5 }]}>
                 Entrar
               </Text>
             </TouchableOpacity>
-          </View>
+            <TouchableOpacity>
+              <Text style={{ color: "#fff" }}>Esqueci minha senha.</Text>
+            </TouchableOpacity>
+          </Animatable.View>
         </KeyboardAvoidingView>
 
         <KeyboardAvoidingView style={style.container} behavior="padding">
@@ -159,8 +195,11 @@ export default function Login() {
               alignItems: "center"
             }}
           >
-            <View style={{ marginTop: 130 }}>
+            <View style={{ marginTop: 60, marginBottom: 50 }}>
               <Text style={style.textLogo}>iHelp</Text>
+              <Text style={[style.text, { fontSize: 15 }]}>
+                Faça seu cadastro
+              </Text>
             </View>
             <TextInput
               placeholder="Seu nome"
@@ -172,6 +211,9 @@ export default function Login() {
             <TextInput
               placeholder="Email"
               style={[style.input, style.layout]}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              textContentType="emailAddress"
               onChangeText={value => {
                 setEmail(value);
               }}
@@ -185,12 +227,16 @@ export default function Login() {
               }}
             ></TextInput>
 
-            <TouchableOpacity
+            <TouchableHighlight
               style={[
                 style.button,
                 style.layout,
-                { marginTop: 40, backgroundColor: "#fff" }
+                {
+                  marginTop: 40,
+                  backgroundColor: "#fff"
+                }
               ]}
+              underlayColor="#ccc"
               onPress={() => {
                 registerUser(username, email, password);
               }}
@@ -203,7 +249,7 @@ export default function Login() {
               >
                 Registrar
               </Text>
-            </TouchableOpacity>
+            </TouchableHighlight>
           </View>
         </KeyboardAvoidingView>
       </Swiper>
