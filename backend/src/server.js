@@ -1,8 +1,10 @@
 const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
+var cors = require('cors');
 const routes = require("./routes");
 require('dotenv/config');
+
 
 const app = express();
 
@@ -13,7 +15,7 @@ mongoose.connect(
     useUnifiedTopology: true
   }
 );
-
+app.use(cors());
 app.use(express.json());
 app.use(routes);
 app.use(session({

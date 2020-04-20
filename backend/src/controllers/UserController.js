@@ -17,7 +17,7 @@ module.exports = {
         
         user = await User.create({ username, bloodtype, email, password, birthday, phone, height, weight, orientation });
         return res.json(user);
-    }
+    },
 
     async login(req, res) {
         const { email, password } = req.body;
