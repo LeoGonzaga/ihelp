@@ -32,7 +32,7 @@ const App = () => {
           title="Register"
           hideTabBar
         />
-        <Scene key="home" component={Home} hideNavBar initial />
+        <Scene key="home" component={Home} hideNavBar  />
       </Stack>
     </Router>
   );

@@ -58,7 +58,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [index, setIndex] = useState(0);
-  // const isCreate = useRegister(username, email, password);
 
   const registerUser = async (
     name: string,
@@ -84,6 +83,7 @@ export default function Login() {
           email,
           password
         });
+
         let { _id, message } = response.data;
         if (_id) {
           Alert.alert(
@@ -94,6 +94,7 @@ export default function Login() {
           setPassword("");
           setUsername("");
           Actions.login();
+
         } else if (message) {
           Alert.alert("Opa!", message);
         }
@@ -119,14 +120,14 @@ export default function Login() {
         });
         console.log(response);
 
-        // let { _id, message } = response.data;
-        // if (_id) {
-        //   Actions.home();
-        // } else if (message) {
-        //   Alert.alert(message);
-        // }
+         let { _id, message } = response.data;
+         if (_id) {
+           Actions.home();
+         } else if (message) {
+           Alert.alert(message);
+         }
 
-        Actions.home();
+        // Actions.home();
       } catch (error) {}
     }
   };
@@ -142,6 +143,8 @@ export default function Login() {
         onIndexChanged={index => {
           setIndex(index);
         }}
+        bounces
+
       >
         <KeyboardAvoidingView style={style.container} behavior="padding">
           <Animatable.View
