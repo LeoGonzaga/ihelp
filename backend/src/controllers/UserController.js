@@ -16,8 +16,7 @@ module.exports = {
         if(user){
             return res.json({ message: 'Email já cadastrado' });
         }
-
-        
+ 
         user = await User.create({ username, email, password });
         return res.json(user);
     },
@@ -48,23 +47,25 @@ module.exports = {
         if(!user){
             return res.json({ message: 'Usuário não encontrado' });
         }else{  
-            var token = crypto.randomBytes(24).toString('hex');
-            console.log(token);
+            user.resetPassToken = crypto.randomBytes(20).toString('hex');
+            user.resetPassTimer = Date.now() + 3600000;
+            user.save();
+            console.log(user.resetPassToken);
 
             const mail = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
-                    user: 'ihelpUNIFEI@gmail.com',
-                    pass: 'bl00dhelp'
+                    user: 'ihelpunifei@gmail.com',
+                    pass: 'Bl00dh3lp'
                 }
             });
             const mailOptions = {
                 to: user.email,
-                from: 'ihelpUNIFEI@gmail.com',
-                subject: 'Recuperação de Conta IHelp',
+                from: 'ihelpunifei@gmail.com',
+                subject: 'Recuperação de Senha IHelp',
                 text: 'Você está recebendo esse email pois você ou alguem requisitou '+
                 'um pedido de recuperação de senha. Caso você não tenha pedido, apenas '+
-                'ignore esse email.\n\n'+'http://'+ req.headers.host + '/reset/' + token + '\n\n'
+                'ignore esse email.\n\n'+'http://'+ req.headers.host + '/reset/' + user.resetPassToken + '\n\n'
             };
             mail.sendMail(mailOptions, function(err) {
                 res.json(user);
@@ -86,6 +87,7 @@ module.exports = {
                 user.password = pass;
                 user.resetPassToken = undefined;
                 user.resetPassTimer = undefined;
+                user.save();
 
                 res.json(user);
             }

@@ -16,11 +16,6 @@ mongoose.connect(
 
 app.use(express.json());
 app.use(routes);
-app.use(session({
-  secret: 'ihelp',
-  resave: true,
-  saveUninitialized: false
-}));
 
 app.listen(3000, function() {
   console.log("Servidor online!");
