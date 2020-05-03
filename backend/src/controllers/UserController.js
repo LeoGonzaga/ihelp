@@ -21,24 +21,6 @@ module.exports = {
         return res.json(user);
     },
 
-    async login(req, res) {
-        const { email, password } = req.body;
-
-        let user = await User.findOne({ email });
-
-        if(!user){
-            return res.json({ message: 'Usuário não encontrado' });
-        }else{
-            bcrypt.compare(password, user.password, function (err, result) {
-                if (result === true) {
-                    return res.json({ message: 'Logado'});
-                } else {
-                    return res.json({ message: 'Senha incorreta'});
-                }
-            })
-        }  
-    },
-
     async recoveryPassword(req, res){
         const { email } = req.body;
         
