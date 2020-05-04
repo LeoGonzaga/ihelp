@@ -1,21 +1,18 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, {useEffect} from 'react';
+import {View, Text, StyleSheet, Linking} from 'react-native';
 
-import { Router, Stack, Scene } from "react-native-router-flux";
-import Login from "./src/pages/login/Login";
-import Register from "./src/pages/register/Register";
-import Home from "./src/pages/home/Home";
+import {Router, Stack, Scene, Actions} from 'react-native-router-flux';
+import Login from './src/pages/login/Login';
+import Recovery from './src/pages/register/Recovery';
+import Home from './src/pages/home/Home';
+import NewPassword from './src/pages/newPassword/NewPassword';
 
-const styles = StyleSheet.create({
-  tabBar: {
-    height: 50,
-    borderTopColor: "darkgrey",
-    borderTopWidth: 1,
-    opacity: 0.98,
-    justifyContent: "space-between"
-  }
-});
+import {MyDrawer} from './src/pages/Components/Drawer';
+
 const App = () => {
+
+
+ 
   return (
     <Router>
       <Stack key="root">
@@ -27,12 +24,23 @@ const App = () => {
           hideTabBar
         />
         <Scene
-          key="register"
-          component={Register}
-          title="Register"
+          key="recovery"
+          component={Recovery}
+          title="Recuperar senha"
           hideTabBar
         />
-        <Scene key="home" component={Home} hideNavBar  />
+        <Scene key="home" component={Home} drawer={true} />
+
+        <Scene key="drawer" component={MyDrawer} hideNavBar={false} open={true}>
+          <Scene key="login" component={Login} title="Setting" />
+        </Scene>
+
+        <Scene
+          key="newPassword"
+          component={NewPassword}
+          hideNavBar
+          hideTabBar
+        />
       </Stack>
     </Router>
   );
