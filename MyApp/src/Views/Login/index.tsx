@@ -49,7 +49,7 @@ const style = StyleSheet.create({
   },
 });
 
-const LoginRegister: React.FC = () => {
+const Login: React.FC = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -172,7 +172,7 @@ const LoginRegister: React.FC = () => {
         <View>
           <TouchableOpacity
             style={[style.button, style.layout, {backgroundColor: '#fff'}]}
-            onPress={() => {}}>
+            onPress={() => navigation.navigate('Register')}>
             <Text
               style={[style.text, {fontSize: 20, margin: 2, color: '#891C1A'}]}>
               Criar conta
@@ -187,5 +187,4 @@ const LoginRegister: React.FC = () => {
   );
 };
 
-export default LoginRegister;
-TouchableOpacity;
+export default Login;

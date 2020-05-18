@@ -13,9 +13,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 //Pages
 import HomeScreen from './src/Views/Home/index';
-import LoginScreen from './src/Views/LoginRegister/index';
+import LoginScreen from './src/Views/Login/index';
 import RecoveryScreen from './src/Views/Recovery/index';
 import ProfileScreen from './src/Views/Profile/index';
+import RegisterScreen from './src/Views/Register/index';
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -28,6 +29,19 @@ const App = () => {
             name="Login"
             component={LoginScreen}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Register"
+            component={RegisterScreen}
+            options={{
+              title: 'Criar uma conta',
+              headerTitleAlign: 'center',
+              headerStyle: {
+                backgroundColor: '#DA5552',
+                elevation:0
+              },
+              headerTintColor: '#fff',
+            }}
           />
           <Stack.Screen name="Recovery" component={RecoveryScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
