@@ -167,13 +167,25 @@ const LoginRegister: React.FC = () => {
             onPress={() => {}}>
             <Text style={[style.text, {fontSize: 20, margin: 5}]}>Entrar</Text>
           </TouchableOpacity>
+        </KeyboardAvoidingView>
+
+        <View>
+          <TouchableOpacity
+            style={[style.button, style.layout, {backgroundColor: '#fff'}]}
+            onPress={() => {}}>
+            <Text
+              style={[style.text, {fontSize: 20, margin: 2, color: '#891C1A'}]}>
+              Criar conta
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => {}} style={{alignSelf: 'center'}}>
             <Text style={{color: '#fff'}}>Esqueci minha senha.</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
+        </View>
       </SafeAreaView>
     </View>
   );
 };
 
 export default LoginRegister;
+TouchableOpacity;
