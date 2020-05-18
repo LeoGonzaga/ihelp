@@ -61,9 +61,9 @@ const Profile: React.FC = ({navigation}) => {
   return (
     <View style={style.container}>
       <SafeAreaView>
-        {/* <View style={{marginTop: 10, marginBottom: 20}}>
+        <View style={{marginTop: 10, marginBottom: 20}}>
             <Text style={style.textLogo}>iHelp</Text>
-          </View> */}
+          </View>
         <KeyboardAvoidingView
           behavior="padding"
           style={{width: 320, paddingRight: 14}}>
@@ -71,17 +71,7 @@ const Profile: React.FC = ({navigation}) => {
             placeholder="Seu nome"
             style={[style.input, style.layout]}
             onChangeText={(value) => setEmail(value)}></TextInput>
-          <TextInput
-            secureTextEntry
-            placeholder="Digite sua senha"
-            style={[style.input, style.layout]}
-            onChangeText={(value) => setPassword(value)}></TextInput>
 
-          <TextInput
-            secureTextEntry
-            placeholder="Confirmar sua senha"
-            style={[style.input, style.layout]}
-            onChangeText={(value) => setPassword(value)}></TextInput>
           <TextInput
             placeholder="Sua altura"
             style={[style.input, style.layout]}
@@ -92,7 +82,7 @@ const Profile: React.FC = ({navigation}) => {
             onChangeText={(value) => setPassword(value)}></TextInput>
           <TextInput
             secureTextEntry
-            placeholder="Digite sua senha"
+            placeholder="Tipo de sangua"
             style={[style.input, style.layout]}
             onChangeText={(value) => setPassword(value)}></TextInput>
           <TouchableOpacity
@@ -102,6 +92,15 @@ const Profile: React.FC = ({navigation}) => {
             }}>
             <Text style={[style.text, {fontSize: 20, margin: 5}]}>
               Atualizar dados
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[style.button, style.layout, {marginTop: 4, backgroundColor:"#fff"}]}
+            onPress={() => {
+              navigation.navigate('Login');
+            }}>
+            <Text style={[style.text, {color:"#891C1A",fontSize: 20, margin: 5}]}>
+              Alterar senha
             </Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>

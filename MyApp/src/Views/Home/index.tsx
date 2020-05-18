@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 // import { Container } from './styles';
 
@@ -40,10 +41,12 @@ const style = StyleSheet.create({
   },
 });
 
-const Home: React.FC = () => {
+const Home: React.FC = ({navigation}) => {
   return (
     <View style={style.container}>
-      <Text>Home</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <Text>Editar perfil</Text>
+      </TouchableOpacity>
     </View>
   );
 };
