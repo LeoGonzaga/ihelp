@@ -164,7 +164,9 @@ const Login: React.FC = ({navigation}) => {
 
           <TouchableOpacity
             style={[style.button, style.layout, {marginTop: 40}]}
-            onPress={() => {}}>
+            onPress={() => {
+              navigation.navigate('Home');
+            }}>
             <Text style={[style.text, {fontSize: 20, margin: 5}]}>Entrar</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
@@ -178,7 +180,9 @@ const Login: React.FC = ({navigation}) => {
               Criar conta
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}} style={{alignSelf: 'center'}}>
+          <TouchableOpacity
+            onPress={() => {}}
+            style={{alignSelf: 'center', marginTop: 4}}>
             <Text style={{color: '#fff'}}>Esqueci minha senha.</Text>
           </TouchableOpacity>
         </View>

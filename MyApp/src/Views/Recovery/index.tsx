@@ -1,10 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 
 // import { Container } from './styles';
 
 const Recovery: React.FC = () => {
-  return <View />;
+  return <View>
+    <SafeAreaView>
+      
+    </SafeAreaView>
+  </View>;
 }
 
 export default Recovery;

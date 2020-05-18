@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 //Pages
 import HomeScreen from './src/Views/Home/index';
@@ -19,12 +20,17 @@ import ProfileScreen from './src/Views/Profile/index';
 import RegisterScreen from './src/Views/Register/index';
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+
+
+
 const App = () => {
   return (
     <>
       <StatusBar barStyle="light-content" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Profile">
           <Stack.Screen
             name="Login"
             component={LoginScreen}
@@ -38,14 +44,28 @@ const App = () => {
               headerTitleAlign: 'center',
               headerStyle: {
                 backgroundColor: '#DA5552',
-                elevation:0
+                elevation: 0,
               },
               headerTintColor: '#fff',
             }}
           />
           <Stack.Screen name="Recovery" component={RecoveryScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="Profile" component={ProfileScreen}  options={{
+              title: 'Editar sua conta',
+              headerTitleAlign: 'center',
+              headerStyle: {
+                backgroundColor: '#DA5552',
+                elevation: 0,
+              },
+              headerTintColor: '#fff',
+            }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </>
