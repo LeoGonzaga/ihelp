@@ -29,16 +29,15 @@ module.exports = {
         if(!user){
             return res.json({ message: 'Usuário não encontrado' });
         }else{  
-            user.resetPassToken = crypto.randomBytes(20).toString('hex');
-            user.resetPassTimer = Date.now() + 3600000;
+            const pass = crypto.randomBytes(10).toString('hex');
+            user.password = pass;
             user.save();
-            console.log(user.resetPassToken);
 
             const mail = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
                     user: 'ihelpunifei@gmail.com',
-                    pass: 'Bl00dh3lp'
+                    pass: ''
                 }
             });
             const mailOptions = {
@@ -46,8 +45,8 @@ module.exports = {
                 from: 'ihelpunifei@gmail.com',
                 subject: 'Recuperação de Senha IHelp',
                 text: 'Você está recebendo esse email pois você ou alguem requisitou '+
-                'um pedido de recuperação de senha. Caso você não tenha pedido, apenas '+
-                'ignore esse email.\n\n'+'http://'+ req.headers.host + '/reset/' + user.resetPassToken + '\n\n'
+                'um pedido de recuperação de senha. Sua nova senha é '+pass+'. Lembre de '+
+                'trocar a senha.'
             };
             mail.sendMail(mailOptions, function(err) {
                 res.json(user);
@@ -55,24 +54,30 @@ module.exports = {
         }
     },
 
-    async changePassword(req, res) {
-        let user = await User.findOne({ resetPassToken: req.params.token, resetPassTimer: {$gt: Date.now()}});
-        
+    async viewUser(req, res) {
+        let user = await User.findById(req.userId);
         if(!user){
-            res.json({message: 'Token invalido ou espirado'})
+            return res.json({message: 'Usuario não encontrado'})
         }else{
-            const { pass, confirmPass } = req.body;
+            return res.json(user);
+        }
+    },
 
-            if(pass != confirmPass){
-                res.json({ message: 'Senhas diferentes'})
-            }else{
-                user.password = pass;
-                user.resetPassToken = undefined;
-                user.resetPassTimer = undefined;
-                user.save();
-
-                res.json(user);
-            }
+    async updateUser(req, res) {
+        let user = await User.findById(req.userId);
+        if(!user){
+            return res.json({message: 'Usuario não encontrado'})
+        }else{
+            const {username, bloodtype, password, birthday, phone, height, weight} = req.body;
+            if(username) user.username = username;
+            if(bloodtype) user.bloodtype = bloodtype;
+            if(password) user.password = password;
+            if(birthday) user.birthday = birthday;
+            if(phone) user.phone = phone;
+            if(height) user.height = height;
+            if(weight) user.weight = weight;
+            user.update();
+            return res.json(user);
         }
     }
 }

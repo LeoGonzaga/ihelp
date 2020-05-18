@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const authConfig = require("../config/authConfig");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -20,7 +21,7 @@ module.exports = {
                             username,
                             email
                         },
-                        token: jwt.sign({id}, 'e4763f089cc9f4d12db9a9a9f667cf81', {expiresIn: '7d'})
+                        token: jwt.sign({id}, authConfig.secret, {expiresIn: authConfig.expiresIn})
                     })
                 } else {
                     return res.status(401).json({ message: 'Senha incorreta'});
