@@ -9,64 +9,15 @@ import {
   StatusBar,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 
-//Pages
-import HomeScreen from './src/Views/Home/index';
-import LoginScreen from './src/Views/Login/index';
-import RecoveryScreen from './src/Views/Recovery/index';
-import ProfileScreen from './src/Views/Profile/index';
-import RegisterScreen from './src/Views/Register/index';
-
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
-
-
-
+import Routes from './src/Routes/Routes';
 
 const App = () => {
   return (
     <>
       <StatusBar barStyle="light-content" />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Profile">
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{
-              title: 'Criar uma conta',
-              headerTitleAlign: 'center',
-              headerStyle: {
-                backgroundColor: '#DA5552',
-                elevation: 0,
-              },
-              headerTintColor: '#fff',
-            }}
-          />
-          <Stack.Screen name="Recovery" component={RecoveryScreen} />
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen name="Profile" component={ProfileScreen}  options={{
-              title: 'Editar sua conta',
-              headerTitleAlign: 'center',
-              headerStyle: {
-                backgroundColor: '#DA5552',
-                elevation: 0,
-              },
-              headerTintColor: '#fff',
-            }}/>
-        </Stack.Navigator>
+        <Routes />
       </NavigationContainer>
     </>
   );
