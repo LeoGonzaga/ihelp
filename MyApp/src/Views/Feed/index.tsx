@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-// import { Container } from './styles';
-
+import Card from '../Feed/Components/Card/index';
+import {ScrollView} from 'react-native-gesture-handler';
 const style = StyleSheet.create({
   container: {
     backgroundColor: '#DA5552',
@@ -41,9 +41,26 @@ const style = StyleSheet.create({
 });
 
 const Feed: React.FC = () => {
+  const DATA = ['#008000', '#ADFF2F', '#A52A2A', '#FFFF00'];
+
+  const Cards = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+  const getColor = () => {
+    let num = Math.floor(Math.random() * 4);
+    return num;
+  };
+
   return (
     <View style={style.container}>
-      <Text>feed</Text>
+      <Text
+        style={{
+          marginTop: 20,
+          color: '#fff',
+          fontWeight: 'bold',
+          fontSize: 20,
+        }}>
+        Feed de doações
+      </Text>
 
       <View
         style={{
@@ -53,7 +70,13 @@ const Feed: React.FC = () => {
           marginTop: 60,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
-        }}></View>
+        }}>
+        <ScrollView>
+          {Cards.map((card) => {
+            return <Card color={DATA[getColor()]} />;
+          })}
+        </ScrollView>
+      </View>
     </View>
   );
 };
