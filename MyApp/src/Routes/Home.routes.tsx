@@ -27,6 +27,8 @@ export default function Home() {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Settings2" component={SettingsScreen} />
+      <Tab.Screen name="Settings3" component={SettingsScreen} />
     </Tab.Navigator>
   );
 }

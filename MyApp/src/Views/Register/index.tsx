@@ -48,7 +48,7 @@ const style = StyleSheet.create({
   },
 });
 
-const Register: React.FC = () => {
+const Register: React.FC = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -77,7 +77,9 @@ const Register: React.FC = () => {
 
           <TouchableOpacity
             style={[style.button, style.layout, {marginTop: 40}]}
-            onPress={() => {}}>
+            onPress={() => {
+              navigation.navigate('Login');
+            }}>
             <Text style={[style.text, {fontSize: 20, margin: 5}]}>
               Concluir
             </Text>

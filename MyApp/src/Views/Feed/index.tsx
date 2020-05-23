@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 // import { Container } from './styles';
 
@@ -41,12 +40,13 @@ const style = StyleSheet.create({
   },
 });
 
-const Home: React.FC = ({navigation}) => {
+const Feed: React.FC = () => {
   return (
     <View style={style.container}>
-      <Text>Homel</Text>
+      
+      <Text>feed</Text>
     </View>
   );
 };
 
-export default Home;
+export default Feed;
