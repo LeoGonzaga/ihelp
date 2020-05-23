@@ -43,8 +43,17 @@ const style = StyleSheet.create({
 const Feed: React.FC = () => {
   return (
     <View style={style.container}>
-      
       <Text>feed</Text>
+
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#fff',
+          width: '95%',
+          marginTop: 60,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+        }}></View>
     </View>
   );
 };
