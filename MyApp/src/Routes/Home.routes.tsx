@@ -24,11 +24,27 @@ const Tab = createBottomTabNavigator();
 
 export default function Home() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-      <Tab.Screen name="Settings2" component={SettingsScreen} />
-      <Tab.Screen name="Settings3" component={SettingsScreen} />
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+      }}>
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{title: 'Feed'}}
+      />
+
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{title: 'Inicio'}}
+      />
+      <Tab.Screen
+        name="Settings3"
+        component={SettingsScreen}
+        options={{title: 'Sair'}}
+      />
     </Tab.Navigator>
   );
 }

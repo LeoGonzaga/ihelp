@@ -29,7 +29,11 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerRoutes() {
   return (
-    <Drawer.Navigator initialRouteName="Feed">
+    <Drawer.Navigator
+      initialRouteName="Feed"
+      drawerContentOptions={{
+        activeTintColor: 'tomato',
+      }}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="Feed" component={Feed} />
