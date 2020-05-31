@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Carousel from 'react-native-snap-carousel';
+import CardType from './Components/CardType/index';
 // import { Container } from './styles';
 
 const style = StyleSheet.create({
@@ -58,10 +59,10 @@ const Home: React.FC = ({navigation}) => {
       <Carousel
         data={entries}
         renderItem={({item}) => {
-          return <Text>{item.type}</Text>;
+          return <CardType type={item.type} situation={item.situation} />;
         }}
-        sliderWidth={100}
-        itemWidth={220}
+        sliderWidth={300}
+        itemWidth={200}
       />
     </View>
   );
