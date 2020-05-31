@@ -3,22 +3,8 @@ import {Text, View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import HomeScreen from '../Routes/Drawer.routes';
-// function HomeScreen() {
-//   return (
-//     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-//       <Text>Home!</Text>
-//     </View>
-//   );
-// }
-
-function SettingsScreen() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+import FeedScreen from '../Routes/Drawer.routes';
+import HomeScreen from '../Views/Home/index';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,18 +17,18 @@ export default function Home() {
       }}>
       <Tab.Screen
         name="Settings"
-        component={SettingsScreen}
-        options={{title: 'Feed'}}
+        component={HomeScreen}
+        options={{title: 'Inicio'}}
       />
 
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
-        options={{title: 'Inicio'}}
+        component={FeedScreen}
+        options={{title: 'Feed'}}
       />
       <Tab.Screen
         name="Settings3"
-        component={SettingsScreen}
+        component={HomeScreen}
         options={{title: 'Sair'}}
       />
     </Tab.Navigator>

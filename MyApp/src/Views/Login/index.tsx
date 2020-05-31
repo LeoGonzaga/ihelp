@@ -36,13 +36,11 @@ const style = StyleSheet.create({
     alignItems: 'center',
     color: '#fff',
     backgroundColor: '#891C1A',
-    padding: 10,
   },
   layout: {
-    width: '100%',
-    padding: 12,
+    padding: 10,
     margin: 5,
-    borderRadius: 14,
+    borderRadius: 6,
   },
   text: {
     color: '#fff',
@@ -147,8 +145,8 @@ const Login: React.FC = ({navigation}) => {
   return (
     <View style={style.container}>
       <SafeAreaView>
-        <KeyboardAvoidingView behavior="padding" style={{width: 320}}>
-          <View style={{marginTop: 50, marginBottom: 140}}>
+        <KeyboardAvoidingView  style={{width: 320}}>
+          <View style={{marginTop: 50, marginBottom: 50}}>
             <Text style={style.textLogo}>iHelp</Text>
           </View>
 

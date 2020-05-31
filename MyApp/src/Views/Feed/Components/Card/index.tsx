@@ -12,7 +12,7 @@ const Card: React.FC = (props) => {
           alignContent: 'center',
           alignItems: 'center',
           backgroundColor: props.color,
-          padding: 20,
+          padding: 10,
           margin: 10,
           borderRadius: 10,
           flexDirection: 'row',
@@ -20,14 +20,14 @@ const Card: React.FC = (props) => {
           elevation: 2,
         }}>
         <View style={{alignItems: 'flex-start'}}>
-          <Text style={{fontWeight: 'bold'}}>Nome: </Text>
-          <Text>Leonardo Gonzaga Silva</Text>
-          <Text style={{fontWeight: 'bold'}}>Urgencia: </Text>
-          <Text>Normal</Text>
-          <Text style={{fontWeight: 'bold'}}>Cidade: </Text>
-          <Text>Pedralva</Text>
-          <Text style={{fontWeight: 'bold'}}>Hospital: </Text>
-          <Text>Homecentro - P.A</Text>
+          <Text style={{fontWeight: 'bold', color: '#fff'}}>Nome: </Text>
+          <Text style={{color:"#c9c9c9"}}>Leonardo Gonzaga Silva</Text>
+          <Text style={{fontWeight: 'bold', color: '#fff'}}>Urgencia: </Text>
+          <Text style={{color:"#c9c9c9"}}>Normal</Text>
+          <Text style={{fontWeight: 'bold', color: '#fff'}}>Cidade: </Text>
+          <Text style={{color:"#c9c9c9"}}>Pedralva</Text>
+          <Text style={{fontWeight: 'bold', color: '#fff'}}>Hospital: </Text>
+          <Text style={{color:"#c9c9c9"}}>Homecentro - P.A</Text>
         </View>
         <View>
           <Text style={{fontSize: 50, color: 'red', fontWeight: 'bold'}}>

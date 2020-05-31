@@ -6,24 +6,6 @@ import Home from '../Views/Home/index';
 import Profile from '../Views/Profile/index';
 import Feed from '../Views/Feed/index';
 
-function HomeScreen({navigation}) {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Button
-        onPress={() => navigation.navigate('Notifications')}
-        title="Go to notifications"
-      />
-    </View>
-  );
-}
-
-function NotificationsScreen({navigation}) {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
-  );
-}
 
 const Drawer = createDrawerNavigator();
 
