@@ -44,14 +44,14 @@ const style = StyleSheet.create({
 
 const Home: React.FC = ({navigation}) => {
   const entries = [
-    {type: '0+', situation: 'Alerta'},
-    {type: '0-', situation: 'Alerta'},
-    {type: 'A+', situation: 'Alerta'},
-    {type: 'A-', situation: 'Alerta'},
-    {type: 'B+', situation: 'Alerta'},
-    {type: 'B-', situation: 'Alerta'},
-    {type: 'AB+', situation: 'Alerta'},
-    {type: 'AB-', situation: 'Alerta'},
+    {type: '0+', situation: 'Alerta', number: 2},
+    {type: '0-', situation: 'Alerta', number: 2},
+    {type: 'A+', situation: 'Normal', number: 3},
+    {type: 'A-', situation: 'Alerta', number: 2},
+    {type: 'B+', situation: 'Alerta', number: 2},
+    {type: 'B-', situation: 'Excelente', number: 4},
+    {type: 'AB+', situation: 'Normal', number: 3},
+    {type: 'AB-', situation: 'Alerta', number: 2},
   ];
 
   return (
@@ -59,7 +59,13 @@ const Home: React.FC = ({navigation}) => {
       <Carousel
         data={entries}
         renderItem={({item}) => {
-          return <CardType type={item.type} situation={item.situation} />;
+          return (
+            <CardType
+              type={item.type}
+              situation={item.situation}
+              number={item.number}
+            />
+          );
         }}
         sliderWidth={300}
         itemWidth={200}
