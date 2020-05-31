@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
+import Carousel from 'react-native-snap-carousel';
 // import { Container } from './styles';
 
 const style = StyleSheet.create({
@@ -42,9 +42,27 @@ const style = StyleSheet.create({
 });
 
 const Home: React.FC = ({navigation}) => {
+  const entries = [
+    {type: '0+', situation: 'Alerta'},
+    {type: '0-', situation: 'Alerta'},
+    {type: 'A+', situation: 'Alerta'},
+    {type: 'A-', situation: 'Alerta'},
+    {type: 'B+', situation: 'Alerta'},
+    {type: 'B-', situation: 'Alerta'},
+    {type: 'AB+', situation: 'Alerta'},
+    {type: 'AB-', situation: 'Alerta'},
+  ];
+
   return (
     <View style={style.container}>
-      <Text>Homel</Text>
+      <Carousel
+        data={entries}
+        renderItem={({item}) => {
+          return <Text>{item.type}</Text>;
+        }}
+        sliderWidth={100}
+        itemWidth={220}
+      />
     </View>
   );
 };
