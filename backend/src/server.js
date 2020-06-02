@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const bp = require("body-parser");
 require('dotenv/config');
 
 const app = express();
@@ -13,7 +14,7 @@ mongoose.connect(
     useUnifiedTopology: true
   }
 );
-
+app.use(bp.json());
 app.use(express.json());
 app.use(routes);
 
