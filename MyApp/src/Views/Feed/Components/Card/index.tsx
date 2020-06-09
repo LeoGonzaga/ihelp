@@ -1,12 +1,15 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Linking} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 // import { Container } from './styles';
 
 const Card: React.FC = (props) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() =>
+        Linking.openURL(`https://api.whatsapp.com/send?phone=5535997459105`)
+      }>
       <View
         style={{
           alignContent: 'center',
@@ -20,17 +23,27 @@ const Card: React.FC = (props) => {
           elevation: 2,
         }}>
         <View style={{alignItems: 'flex-start'}}>
-          <Text style={{fontWeight: 'bold', color: '#fff'}}>Nome: </Text>
-          <Text style={{color:"#c9c9c9"}}>Leonardo Gonzaga Silva</Text>
-          <Text style={{fontWeight: 'bold', color: '#fff'}}>Urgencia: </Text>
-          <Text style={{color:"#c9c9c9"}}>Normal</Text>
-          <Text style={{fontWeight: 'bold', color: '#fff'}}>Cidade: </Text>
-          <Text style={{color:"#c9c9c9"}}>Pedralva</Text>
-          <Text style={{fontWeight: 'bold', color: '#fff'}}>Hospital: </Text>
-          <Text style={{color:"#c9c9c9"}}>Homecentro - P.A</Text>
+          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 20}}>
+            Nome:{' '}
+          </Text>
+          <Text style={{color: '#c9c9c9', fontSize: 20}}>
+            Leonardo Gonzaga Silva
+          </Text>
+          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 20}}>
+            Urgencia:{' '}
+          </Text>
+          <Text style={{color: '#c9c9c9', fontSize: 20}}>Normal</Text>
+          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 20}}>
+            Cidade:{' '}
+          </Text>
+          <Text style={{color: '#c9c9c9', fontSize: 20}}>Pedralva</Text>
+          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 20}}>
+            Hospital:{' '}
+          </Text>
+          <Text style={{color: '#c9c9c9', fontSize: 20}}>Homecentro - P.A</Text>
         </View>
         <View>
-          <Text style={{fontSize: 50, color: 'red', fontWeight: 'bold'}}>
+          <Text style={{fontSize: 80, color: '#fff', fontWeight: 'bold'}}>
             O +
           </Text>
         </View>

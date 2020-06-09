@@ -40,9 +40,9 @@ const style = StyleSheet.create({
   },
   layout: {
     width: '100%',
-    padding: 12,
+    padding: 10,
     margin: 5,
-    borderRadius: 14,
+    borderRadius: 6,
   },
   text: {
     color: '#fff',
@@ -62,11 +62,11 @@ const Profile: React.FC = ({navigation}) => {
     <View style={style.container}>
       <SafeAreaView>
         <View style={{marginTop: 10, marginBottom: 20}}>
-            <Text style={style.textLogo}>iHelp</Text>
-          </View>
+          <Text style={style.textLogo}>iHelp</Text>
+        </View>
         <KeyboardAvoidingView
           behavior="padding"
-          style={{width: 320, paddingRight: 14}}>
+          style={{width: 380, paddingRight: 14}}>
           <TextInput
             placeholder="Seu nome"
             style={[style.input, style.layout]}
@@ -85,6 +85,21 @@ const Profile: React.FC = ({navigation}) => {
             placeholder="Tipo de sangua"
             style={[style.input, style.layout]}
             onChangeText={(value) => setPassword(value)}></TextInput>
+
+          <TouchableOpacity
+            style={[
+              style.button,
+              style.layout,
+              {marginTop: 40, backgroundColor: '#fff'},
+            ]}
+            onPress={() => {
+              navigation.navigate('Home');
+            }}>
+            <Text
+              style={[style.text, {fontSize: 20, margin: 5, color: '#891C1A'}]}>
+              Alterar senha
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={[style.button, style.layout, {marginTop: 40}]}
             onPress={() => {
@@ -94,15 +109,7 @@ const Profile: React.FC = ({navigation}) => {
               Atualizar dados
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[style.button, style.layout, {marginTop: 4, backgroundColor:"#fff"}]}
-            onPress={() => {
-              navigation.navigate('Login');
-            }}>
-            <Text style={[style.text, {color:"#891C1A",fontSize: 20, margin: 5}]}>
-              Alterar senha
-            </Text>
-          </TouchableOpacity>
+          
         </KeyboardAvoidingView>
       </SafeAreaView>
     </View>

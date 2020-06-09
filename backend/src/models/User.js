@@ -9,10 +9,7 @@ const UserSchema = new mongoose.Schema({
     birthday: String,
     phone: String,
     height: Number,
-    weight: Number,
-    orientation: String,
-    resetPassToken: String,
-    resetPassTimer: Date
+    weight: Number
 });
 
 UserSchema.pre('save', function(next) {

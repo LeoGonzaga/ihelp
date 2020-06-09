@@ -1,24 +1,19 @@
-import * as React from 'react';
-import {Button, View} from 'react-native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import Home from '../Views/Home/index';
-import Profile from '../Views/Profile/index';
-import Feed from '../Views/Feed/index';
+import HomeRoutes from '../Routes/Home.routes';
+import LoginRoutes from '../Routes/Login.routes';
+import {NavigationContainer} from '@react-navigation/native';
+import FeedScreen from '../Views/Feed/index';
+import DetailsScreen from '../Views/Feed/Details/index';
 
+const Stack = createStackNavigator();
 
-const Drawer = createDrawerNavigator();
-
-export default function DrawerRoutes() {
+export default function StackRoute() {
   return (
-    <Drawer.Navigator
-      initialRouteName="Feed"
-      drawerContentOptions={{
-        activeTintColor: 'tomato',
-      }}>
-      <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Profile" component={Profile} />
-      <Drawer.Screen name="Feed" component={Feed} />
-    </Drawer.Navigator>
+    <Stack.Navigator initialRouteName="Feed">
+      <Stack.Screen name="Feed" component={FeedScreen} />
+      <Stack.Screen name="Details" component={DetailsScreen} />
+    </Stack.Navigator>
   );
 }

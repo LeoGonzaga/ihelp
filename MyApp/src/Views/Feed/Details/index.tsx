@@ -48,7 +48,7 @@ const style = StyleSheet.create({
   },
 });
 
-const Register: React.FC = ({navigation}) => {
+const Details: React.FC = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -56,38 +56,11 @@ const Register: React.FC = ({navigation}) => {
     <View style={style.container}>
       <SafeAreaView>
         <View style={{marginTop: 50, marginBottom: 140}}>
-          <Text style={style.textLogo}>iHelp</Text>
+          <Text style={style.textLogo}>detalhe</Text>
         </View>
-        <KeyboardAvoidingView behavior="padding" style={{width: 380}}>
-          <TextInput
-            secureTextEntry
-            placeholder="Seu nome"
-            style={[style.input, style.layout]}
-            onChangeText={(value) => setPassword(value)}></TextInput>
-
-          <TextInput
-            placeholder="Digite uma senha"
-            style={[style.input, style.layout]}
-            onChangeText={(value) => setEmail(value)}></TextInput>
-          <TextInput
-            secureTextEntry
-            placeholder="Confirme sua senha"
-            style={[style.input, style.layout]}
-            onChangeText={(value) => setPassword(value)}></TextInput>
-
-          <TouchableOpacity
-            style={[style.button, style.layout, {marginTop: 40}]}
-            onPress={() => {
-              navigation.navigate('Login');
-            }}>
-            <Text style={[style.text, {fontSize: 20, margin: 5}]}>
-              Concluir
-            </Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );
 };
 
-export default Register;
+export default Details;

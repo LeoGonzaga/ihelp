@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import Carousel from 'react-native-snap-carousel';
 import CardType from './Components/CardType/index';
+import Card from '../Feed/Components/Card';
 // import { Container } from './styles';
 
 const style = StyleSheet.create({
@@ -43,6 +44,14 @@ const style = StyleSheet.create({
 });
 
 const Home: React.FC = ({navigation}) => {
+  const DATA = ['#8B0000', '#8B0000', '#8B0000', '#8B0000'];
+
+  const Cards = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+  const getColor = () => {
+    let num = Math.floor(Math.random() * 4);
+    return num;
+  };
   const entries = [
     {type: '0+', situation: 'Alerta', number: 2},
     {type: '0-', situation: 'Alerta', number: 2},
@@ -67,9 +76,40 @@ const Home: React.FC = ({navigation}) => {
             />
           );
         }}
-        sliderWidth={300}
-        itemWidth={200}
+        sliderWidth={350}
+        itemWidth={250}
       />
+
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#fff',
+          width: '100%',
+          padding: 100,
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+          alignItems: 'center',
+        }}>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Ultima doação:</Text>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>20/05/20</Text>
+        <Text style={{fontSize: 20, marginBottom: 50}}>
+          Sangue em falta? Não
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Create');
+          }}
+          style={{
+            padding: 20,
+            backgroundColor: '#891C1A',
+            borderRadius: 6,
+            width: 400,
+          }}>
+          <Text style={{color: '#fff', textAlign: 'center', fontSize: 20}}>
+            Agendar doação
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

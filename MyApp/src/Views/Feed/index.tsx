@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Linking} from 'react-native';
 
 import Card from '../Feed/Components/Card/index';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 const style = StyleSheet.create({
   container: {
     backgroundColor: '#DA5552',
@@ -40,8 +40,8 @@ const style = StyleSheet.create({
   },
 });
 
-const Feed: React.FC = () => {
-  const DATA = ['#008000', '#ADFF2F', '#A52A2A', '#FFFF00'];
+const Feed: React.FC = ({navigation}) => {
+  const DATA = ['#A52A2A', '#A52A2A', '#A52A2A', '#A52A2A'];
 
   const Cards = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
