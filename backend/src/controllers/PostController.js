@@ -3,23 +3,15 @@ const User = require("../models/User");
 
 module.exports = {
     async createPost(req, res){
-        const {username, bloodtype, urgencia, cidade, hospital, phone} = req.body;
-        const post = await Post.create({username, bloodtype, urgencia, cidade, hospital, phone});
+        const {username, bloodtype, urgency, city, hospital, phone} = req.body;
+        const post = await Post.create({username, bloodtype, urgency, city, hospital, phone});
         return res.json(post);
     },
  
     async viewPosts(req, res){
-        await Post.find({}, function(err, posts){
-            if(err){
-                return res.json({message: 'Nenhum Post Encontrado'});
-            }else{
-                var postMap = {};
-                posts.forEach(function(post){
-                    postMap[post._id] = post;
-                });
-                return res.json(postMap);
-            }
-        }); 
+        const filter = [];
+        let post = await Post.find(filter);
+        return res.json(post);
     },
 
     async deletePost(req, res){

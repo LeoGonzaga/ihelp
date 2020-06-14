@@ -6,14 +6,14 @@ module.exports = {
     async auth (req, res, next){
         const token = req.body.token;
         if(!token){
-             return res.status(401).json({error: 'Token not provided'});
+             return res.status(401).json({error: 'Token não recebido'});
         }
         try{
             const decoded = await promisify(jwt.verify)(token, authConfig.secret);
             req.userId = decoded.id;
             return next();
         }catch(err){
-            return res.status(401).json({ error: 'Token Invalid'});
+            return res.status(401).json({ error: 'Token Invalido'});
         }
     }
 }
