@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   SafeAreaView,
@@ -51,13 +51,19 @@ const style = StyleSheet.create({
 
 const TestDonate: React.FC = ({navigation}) => {
   const windowWidth = Dimensions.get('window').width;
+  let [age, setAge] = useState('24');
+  let [weight, setWeight] = useState('50');
+  let [enableButton, setEnableButton] = useState(false);
 
-  // const getUserData = async () => {
-  //   let user = await AsyncStorage.getItem('@user');
-  //   if (user) {
-  //     console.log(user);
-  //   }
-  // };
+  const getUserData = async () => {
+    if (age >= '16' && weight >= '50') {
+      setEnableButton(true);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <SafeAreaView style={style.container}>
@@ -92,43 +98,46 @@ const TestDonate: React.FC = ({navigation}) => {
           style={{
             width: 100,
             height: 100,
-            backgroundColor: '#FFF',
+            backgroundColor: enableButton ? 'green' : '#FFF',
             alignItems: 'center',
             borderRadius: 50,
             justifyContent: 'center',
           }}>
-          <Text>Idade:</Text>
-          <Text>24</Text>
+          <Text style={{color: enableButton ? '#ffff' : '#000'}}>Idade:</Text>
+          <Text style={{color: enableButton ? '#ffff' : '#000'}}>24</Text>
         </View>
 
         <View
           style={{
             width: 100,
             height: 100,
-            backgroundColor: '#FFF',
+            backgroundColor: enableButton ? 'green' : '#FFF',
             alignItems: 'center',
             borderRadius: 50,
             justifyContent: 'center',
           }}>
-          <Text>Idade:</Text>
-          <Text>24</Text>
+          <Text style={{color: enableButton ? '#ffff' : '#000'}}>Peso:</Text>
+          <Text style={{color: enableButton ? '#ffff' : '#000'}}>64</Text>
         </View>
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Instruction');
-        }}
-        style={{
-          padding: 10,
-          backgroundColor: '#fff',
-          borderRadius: 6,
-          elevation: 5,
-          width: windowWidth - 50,
-        }}>
-        <Text style={{color: '#891C1A', textAlign: 'center', fontSize: 20}}>
-          Prosseguir
-        </Text>
-      </TouchableOpacity>
+
+      {enableButton ? (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Instruction');
+          }}
+          style={{
+            padding: 10,
+            backgroundColor: '#fff',
+            borderRadius: 6,
+            elevation: 5,
+            width: windowWidth - 50,
+          }}>
+          <Text style={{color: '#891C1A', textAlign: 'center', fontSize: 20}}>
+            Prosseguir
+          </Text>
+        </TouchableOpacity>
+      ) : null}
     </SafeAreaView>
   );
 };
