@@ -8,13 +8,14 @@ import {
   TouchableOpacity,
   Alert,
   TextInput,
+  Dimensions,
 } from 'react-native';
 
 // import { Container } from './styles';
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#DA5552',
+    backgroundColor: '#A52A2A',
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
@@ -29,13 +30,14 @@ const style = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
     textAlign: 'center',
-    fontSize: 23,
+    fontSize: 20,
     color: '#B3B6B7',
   },
   button: {
     alignItems: 'center',
     color: '#fff',
     backgroundColor: '#891C1A',
+    elevation: 5,
   },
   layout: {
     padding: 10,
@@ -52,10 +54,13 @@ const Login: React.FC = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+
   return (
     <View style={style.container}>
       <SafeAreaView>
-        <KeyboardAvoidingView style={{width: 380}}>
+        <KeyboardAvoidingView style={{width: windowWidth - 50}}>
           <View style={{marginTop: 50, marginBottom: 50}}>
             <Text style={style.textLogo}>iHelp</Text>
           </View>

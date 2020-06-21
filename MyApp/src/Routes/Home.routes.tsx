@@ -28,11 +28,13 @@ export default function Home() {
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'tomato',
+        activeTintColor: '#A52A2A',
         inactiveTintColor: 'gray',
         tabStyle: {
           width: 100,
         },
+        keyboardHidesTabBar: true,
+        
       }}>
       <Tab.Screen
         name="Home"

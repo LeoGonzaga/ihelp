@@ -12,7 +12,18 @@ const Stack = createStackNavigator();
 export default function StackRoute() {
   return (
     <Stack.Navigator initialRouteName="Feed">
-      <Stack.Screen name="Feed" component={FeedScreen} />
+      <Stack.Screen
+        name="Feed"
+        component={FeedScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: '#A52A2A',
+            elevation: 0,
+          },
+          headerTitleAlign: 'center',
+          headerTintColor: '#fff',
+        }}
+      />
       <Stack.Screen name="Details" component={DetailsScreen} />
     </Stack.Navigator>
   );

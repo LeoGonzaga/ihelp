@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text, Linking} from 'react-native';
+import {View, Text, Linking, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 // import { Container } from './styles';
 
 const Card: React.FC = (props) => {
+  const windowWidth = Dimensions.get('window').width;
   return (
     <TouchableOpacity
       onPress={() =>
@@ -12,6 +13,7 @@ const Card: React.FC = (props) => {
       }>
       <View
         style={{
+          flex:1,
           alignContent: 'center',
           alignItems: 'center',
           backgroundColor: props.color,
@@ -20,27 +22,26 @@ const Card: React.FC = (props) => {
           borderRadius: 10,
           flexDirection: 'row',
           justifyContent: 'space-between',
-          elevation: 2,
         }}>
         <View style={{alignItems: 'flex-start'}}>
-          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 20}}>
+          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 16}}>
             Nome:{' '}
           </Text>
-          <Text style={{color: '#c9c9c9', fontSize: 20}}>
+          <Text style={{color: '#c9c9c9', fontSize: 16}}>
             Leonardo Gonzaga Silva
           </Text>
-          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 20}}>
+          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 16}}>
             Urgencia:{' '}
           </Text>
-          <Text style={{color: '#c9c9c9', fontSize: 20}}>Normal</Text>
-          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 20}}>
+          <Text style={{color: '#c9c9c9', fontSize: 16}}>Normal</Text>
+          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 16}}>
             Cidade:{' '}
           </Text>
-          <Text style={{color: '#c9c9c9', fontSize: 20}}>Pedralva</Text>
-          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 20}}>
+          <Text style={{color: '#c9c9c9', fontSize: 16}}>Pedralva</Text>
+          <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 16}}>
             Hospital:{' '}
           </Text>
-          <Text style={{color: '#c9c9c9', fontSize: 20}}>Homecentro - P.A</Text>
+          <Text style={{color: '#c9c9c9', fontSize: 16}}>Homecentro - P.A</Text>
         </View>
         <View>
           <Text style={{fontSize: 80, color: '#fff', fontWeight: 'bold'}}>

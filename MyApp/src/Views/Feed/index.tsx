@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet, Linking} from 'react-native';
+import {View, Text, StyleSheet, Linking, Dimensions} from 'react-native';
 
 import Card from '../Feed/Components/Card/index';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#DA5552',
+    backgroundColor: '#A52A2A',
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
@@ -41,6 +41,7 @@ const style = StyleSheet.create({
 });
 
 const Feed: React.FC = ({navigation}) => {
+  const windowWidth = Dimensions.get('window').width;
   const DATA = ['#A52A2A', '#A52A2A', '#A52A2A', '#A52A2A'];
 
   const Cards = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
@@ -57,17 +58,15 @@ const Feed: React.FC = ({navigation}) => {
           marginTop: 20,
           color: '#fff',
           fontWeight: 'bold',
-          fontSize: 20,
+          fontSize: 13,
         }}>
-        Feed de doações
+        Clique nos cards para entrar em contato
       </Text>
 
       <View
         style={{
-          flex: 1,
           backgroundColor: '#fff',
-          width: '95%',
-          marginTop: 60,
+          marginTop: 20,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
         }}>

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import Carousel from 'react-native-snap-carousel';
 import CardType from './Components/CardType/index';
@@ -8,8 +8,7 @@ import Card from '../Feed/Components/Card';
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#DA5552',
-    flex: 1,
+    backgroundColor: '#A52A2A',
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
@@ -31,6 +30,7 @@ const style = StyleSheet.create({
     color: '#fff',
     backgroundColor: '#891C1A',
     padding: 10,
+    elevation: 5,
   },
   layout: {
     width: '100%',
@@ -44,14 +44,8 @@ const style = StyleSheet.create({
 });
 
 const Home: React.FC = ({navigation}) => {
-  const DATA = ['#8B0000', '#8B0000', '#8B0000', '#8B0000'];
+  const windowWidth = Dimensions.get('window').width;
 
-  const Cards = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
-  const getColor = () => {
-    let num = Math.floor(Math.random() * 4);
-    return num;
-  };
   const entries = [
     {type: '0+', situation: 'Alerta', number: 2},
     {type: '0-', situation: 'Alerta', number: 2},
@@ -77,38 +71,58 @@ const Home: React.FC = ({navigation}) => {
           );
         }}
         sliderWidth={350}
-        itemWidth={250}
+        itemWidth={180}
       />
-
       <View
         style={{
-          flex: 1,
           backgroundColor: '#fff',
           width: '100%',
-          padding: 100,
+          marginTop: 20,
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
           alignItems: 'center',
+          padding: 20,
         }}>
-        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Ultima doação:</Text>
-        <Text style={{fontSize: 20, fontWeight: 'bold'}}>20/05/20</Text>
-        <Text style={{fontSize: 20, marginBottom: 50}}>
-          Sangue em falta? Não
+        <Text style={{fontSize: 17, fontWeight: 'bold'}}>
+          Ultima doação: 20/05/20
         </Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('Create');
-          }}
+        <Text style={{fontSize: 17, marginBottom: 10}}>
+          Seu tipo esta falta? Não
+        </Text>
+        <View
           style={{
-            padding: 20,
-            backgroundColor: '#891C1A',
-            borderRadius: 6,
-            width: 400,
+            padding: 5,
           }}>
-          <Text style={{color: '#fff', textAlign: 'center', fontSize: 20}}>
-            Agendar doação
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Create');
+            }}
+            style={{
+              padding: 10,
+              backgroundColor: '#891C1A',
+              borderRadius: 6,
+              width: windowWidth - 50,
+              marginBottom: 10,
+            }}>
+            <Text style={{color: '#fff', textAlign: 'center', fontSize: 20}}>
+              Agendar doação
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Testes');
+            }}
+            style={{
+              padding: 10,
+              backgroundColor: '#891C1A',
+              borderRadius: 6,
+              width: windowWidth - 50,
+            }}>
+            <Text style={{color: '#fff', textAlign: 'center', fontSize: 20}}>
+              Fazer teste
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

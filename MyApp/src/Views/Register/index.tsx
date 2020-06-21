@@ -7,13 +7,14 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
 } from 'react-native';
 
 // import { Container } from './styles';
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#DA5552',
+    backgroundColor: '#A52A2A',
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
@@ -28,7 +29,7 @@ const style = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
     textAlign: 'center',
-    fontSize: 23,
+    fontSize: 20,
     color: '#B3B6B7',
   },
   button: {
@@ -52,13 +53,16 @@ const Register: React.FC = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+
+  const windowWidth = Dimensions.get('window').width;
   return (
     <View style={style.container}>
       <SafeAreaView>
-        <View style={{marginTop: 50, marginBottom: 140}}>
+        <View style={{marginTop: 50, marginBottom: 100}}>
           <Text style={style.textLogo}>iHelp</Text>
         </View>
-        <KeyboardAvoidingView behavior="padding" style={{width: 380}}>
+        <KeyboardAvoidingView
+          style={{width: windowWidth - 50}}>
           <TextInput
             secureTextEntry
             placeholder="Seu nome"

@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 
@@ -14,14 +15,14 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#DA5552',
+    backgroundColor: '#A52A2A',
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
   },
   textLogo: {
-    fontSize: 46,
+    fontSize: 18,
     color: '#fff',
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -29,7 +30,7 @@ const style = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
     textAlign: 'center',
-    fontSize: 23,
+    fontSize: 20,
     color: '#B3B6B7',
   },
   button: {
@@ -37,6 +38,7 @@ const style = StyleSheet.create({
     color: '#fff',
     backgroundColor: '#891C1A',
     padding: 10,
+    elevation: 5,
   },
   layout: {
     width: '100%',
@@ -58,61 +60,60 @@ const Profile: React.FC = ({navigation}) => {
   const [heightUser, setHeightUser] = useState(0);
   const [weight, setWeight] = useState(0);
 
+  const windowWidth = Dimensions.get('window').width;
+
   return (
-    <View style={style.container}>
-      <SafeAreaView>
-        <View style={{marginTop: 10, marginBottom: 20}}>
-          <Text style={style.textLogo}>iHelp</Text>
-        </View>
-        <KeyboardAvoidingView
-          behavior="padding"
-          style={{width: 380, paddingRight: 14}}>
-          <TextInput
-            placeholder="Seu nome"
-            style={[style.input, style.layout]}
-            onChangeText={(value) => setEmail(value)}></TextInput>
+    <SafeAreaView style={[style.container]}>
+      <View style={{marginTop: 10, marginBottom: 16}}>
+        <Text style={style.textLogo}>Editar perfil</Text>
+      </View>
+      <KeyboardAvoidingView
+        behavior="height"
+        style={{width: windowWidth - 50, paddingRight: 14}}>
+        <TextInput
+          placeholder="Seu nome"
+          style={[style.input, style.layout]}
+          onChangeText={(value) => setEmail(value)}></TextInput>
 
-          <TextInput
-            placeholder="Sua altura"
-            style={[style.input, style.layout]}
-            onChangeText={(value) => setPassword(value)}></TextInput>
-          <TextInput
-            placeholder="Seu peso"
-            style={[style.input, style.layout]}
-            onChangeText={(value) => setPassword(value)}></TextInput>
-          <TextInput
-            secureTextEntry
-            placeholder="Tipo de sangua"
-            style={[style.input, style.layout]}
-            onChangeText={(value) => setPassword(value)}></TextInput>
+        <TextInput
+          placeholder="Sua altura"
+          style={[style.input, style.layout]}
+          onChangeText={(value) => setPassword(value)}></TextInput>
+        <TextInput
+          placeholder="Seu peso"
+          style={[style.input, style.layout]}
+          onChangeText={(value) => setPassword(value)}></TextInput>
+        <TextInput
+          secureTextEntry
+          placeholder="Tipo de sangua"
+          style={[style.input, style.layout]}
+          onChangeText={(value) => setPassword(value)}></TextInput>
 
-          <TouchableOpacity
-            style={[
-              style.button,
-              style.layout,
-              {marginTop: 40, backgroundColor: '#fff'},
-            ]}
-            onPress={() => {
-              navigation.navigate('Home');
-            }}>
-            <Text
-              style={[style.text, {fontSize: 20, margin: 5, color: '#891C1A'}]}>
-              Alterar senha
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[style.button, style.layout, {marginTop: 40}]}
-            onPress={() => {
-              navigation.navigate('Home');
-            }}>
-            <Text style={[style.text, {fontSize: 20, margin: 5}]}>
-              Atualizar dados
-            </Text>
-          </TouchableOpacity>
-          
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </View>
+        <TouchableOpacity
+          style={[
+            style.button,
+            style.layout,
+            {marginTop: 40, backgroundColor: '#fff'},
+          ]}
+          onPress={() => {
+            navigation.navigate('Home');
+          }}>
+          <Text
+            style={[style.text, {fontSize: 20, margin: 5, color: '#891C1A'}]}>
+            Alterar senha
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[style.button, style.layout, {marginTop: 20}]}
+          onPress={() => {
+            navigation.navigate('Home');
+          }}>
+          <Text style={[style.text, {fontSize: 20, margin: 5}]}>
+            Atualizar dados
+          </Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
