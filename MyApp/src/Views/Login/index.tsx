@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   SafeAreaView,
@@ -9,9 +9,10 @@ import {
   Alert,
   TextInput,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
-
-// import { Container } from './styles';
+import AsyncStorage from '@react-native-community/async-storage';
+import {StackActions} from '@react-navigation/native';
 
 const style = StyleSheet.create({
   container: {
@@ -52,6 +53,7 @@ const style = StyleSheet.create({
 const Login: React.FC = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -77,6 +79,7 @@ const Login: React.FC = ({navigation}) => {
         if (resJSON.message) {
           Alert.alert('Ops!', resJSON.message);
         } else {
+          await AsyncStorage.setItem('@user', JSON.stringify(resJSON));
           navigation.navigate('Home');
         }
       }
@@ -85,7 +88,22 @@ const Login: React.FC = ({navigation}) => {
     }
   };
 
-  return (
+  const getDataUser = async () => {
+    let user = await AsyncStorage.getItem('@user');
+    if (user) {
+      navigation.navigate('Home');
+    } else {
+      setLoading(false);
+    }
+
+    console.log('DATA', user);
+  };
+
+  useEffect(() => {
+    getDataUser();
+  }, []);
+
+  const login = (
     <View style={style.container}>
       <SafeAreaView>
         <KeyboardAvoidingView style={{width: windowWidth - 50}}>
@@ -116,7 +134,13 @@ const Login: React.FC = ({navigation}) => {
         <View>
           <TouchableOpacity
             style={[style.button, style.layout, {backgroundColor: '#fff'}]}
-            onPress={() => navigation.navigate('Register')}>
+            onPress={() => {
+              navigation.navigate('Register');
+
+              navigation.dispatch(
+                StackActions.replace('Home', {user: 'Wojtek'}),
+              );
+            }}>
             <Text
               style={[style.text, {fontSize: 20, margin: 2, color: '#891C1A'}]}>
               Criar conta
@@ -131,6 +155,19 @@ const Login: React.FC = ({navigation}) => {
       </SafeAreaView>
     </View>
   );
+
+  const loadingScreen = (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#891C1A',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <ActivityIndicator color="#fff" size="large"></ActivityIndicator>
+    </View>
+  );
+  return loading ? loadingScreen : login;
 };
 
 export default Login;

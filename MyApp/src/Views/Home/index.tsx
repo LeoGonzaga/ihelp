@@ -4,6 +4,8 @@ import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import Carousel from 'react-native-snap-carousel';
 import CardType from './Components/CardType/index';
 import Card from '../Feed/Components/Card';
+import AsyncStorage from '@react-native-community/async-storage';
+import {StackActions} from '@react-navigation/native';
 // import { Container } from './styles';
 
 const style = StyleSheet.create({
@@ -56,6 +58,17 @@ const Home: React.FC = ({navigation}) => {
     {type: 'AB+', situation: 'Normal', number: 3},
     {type: 'AB-', situation: 'Alerta', number: 2},
   ];
+
+  const getDataUser = async () => {
+    let user = await AsyncStorage.getItem('@user');
+    if (user) {
+    }
+    console.log('DATA', user);
+  };
+
+  useEffect(() => {
+    getDataUser();
+  }, []);
 
   return (
     <View style={style.container}>

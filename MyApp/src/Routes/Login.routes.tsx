@@ -22,7 +22,7 @@ export default function LoginRoutes() {
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{headerShown: false}}
+        options={{headerShown: false, title: 'Bem vindo(a)'}}
       />
       <Stack.Screen
         name="Login"
