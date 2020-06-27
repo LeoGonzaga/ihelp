@@ -9,7 +9,16 @@ const Stack = createStackNavigator();
 
 export default function LoginRoutes() {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerTintColor: '#ffff',
+        headerStyle: {
+          backgroundColor: '#A52A2A',
+          elevation: 0,
+        },
+      }}>
       <Stack.Screen
         name="Home"
         component={Home}

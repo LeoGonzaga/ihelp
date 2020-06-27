@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   SafeAreaView,
@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  ActivityIndicator,
+  Alert,
 } from 'react-native';
-
 // import { Container } from './styles';
 
 const style = StyleSheet.create({
@@ -53,36 +54,86 @@ const Register: React.FC = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const windowWidth = Dimensions.get('window').width;
-  return (
+  const API_URL = 'https://ihelp-back.herokuapp.com/';
+
+  const registerUser = async (
+    username: string,
+    email: string,
+    password: string,
+  ) => {
+    try {
+      if (email == '' || username == '' || password == '') {
+        Alert.alert('Opa! ', 'Os campos não podem estar vazios!');
+      } else if (password.length < 6) {
+        Alert.alert('Sua senha precisa ter no minimo 6 digitos');
+      } else {
+        let response = await fetch(API_URL + 'createAccount', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({username, email, password}),
+        });
+        let resJSON = await response.json();
+        console.log(
+          'resJSON',
+          resJSON + '!' + ' Por favor, verifique seus dados e tente novamente',
+        );
+
+        if (resJSON.error) {
+          Alert.alert('Ops!', resJSON.error);
+        } else {
+          Alert.alert('Sucesso!', 'Seu cadastro foi realizado com sucesso!');
+          navigation.navigate('Login');
+        }
+      }
+    } catch (error) {
+      console.log('Error', error);
+    }
+  };
+
+  useEffect(() => {
+    console.log('Nome', username, 'Email', email, 'Senha', password);
+  });
+
+  const loadingScreen = (
+    <View style={{flex: 1, backgroundColor: '#ddd'}}>
+      <ActivityIndicator color="red" size="large" />
+    </View>
+  );
+
+  const registerScreen = (
     <View style={style.container}>
       <SafeAreaView>
-        <View style={{marginTop: 50, marginBottom: 100}}>
+        <View style={{marginTop: 50, marginBottom: 50}}>
           <Text style={style.textLogo}>iHelp</Text>
         </View>
-        <KeyboardAvoidingView
-          style={{width: windowWidth - 50}}>
+        <KeyboardAvoidingView style={{width: windowWidth - 50}}>
           <TextInput
-            secureTextEntry
             placeholder="Seu nome"
             style={[style.input, style.layout]}
-            onChangeText={(value) => setPassword(value)}></TextInput>
-
+            onChangeText={(value) => setUsername(value)}></TextInput>
           <TextInput
-            placeholder="Digite uma senha"
+            placeholder="Seu email"
+            keyboardType="email-address"
+            autoCapitalize="none"
             style={[style.input, style.layout]}
             onChangeText={(value) => setEmail(value)}></TextInput>
           <TextInput
             secureTextEntry
-            placeholder="Confirme sua senha"
+            autoCapitalize="none"
+            placeholder="Digite uma senha"
             style={[style.input, style.layout]}
             onChangeText={(value) => setPassword(value)}></TextInput>
 
           <TouchableOpacity
             style={[style.button, style.layout, {marginTop: 40}]}
             onPress={() => {
-              navigation.navigate('Login');
+              registerUser(username, email, password);
             }}>
             <Text style={[style.text, {fontSize: 20, margin: 5}]}>
               Concluir
@@ -92,6 +143,8 @@ const Register: React.FC = ({navigation}) => {
       </SafeAreaView>
     </View>
   );
+
+  return registerScreen;
 };
 
 export default Register;
