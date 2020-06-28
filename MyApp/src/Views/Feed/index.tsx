@@ -1,5 +1,14 @@
-import React from 'react';
-import {View, Text, StyleSheet, Linking, Dimensions} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Linking,
+  Dimensions,
+  AsyncStorage,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
 
 import Card from '../Feed/Components/Card/index';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
@@ -41,21 +50,36 @@ const style = StyleSheet.create({
 });
 
 const Feed: React.FC = ({navigation}) => {
-  const windowWidth = Dimensions.get('window').width;
-  const DATA = ['#A52A2A', '#A52A2A', '#A52A2A', '#A52A2A'];
+  const [card, setCards] = useState();
+  const [refreshing, setRefreshing] = useState(false);
 
-  const Cards = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  const getAllPosts = async () => {
+    let value = await AsyncStorage.getItem('@user');
+    let myToken = await JSON.parse(value);
+    console.log('token', myToken.token);
 
-  const getColor = () => {
-    let num = Math.floor(Math.random() * 4);
-    return num;
+    let response = await fetch('https://ihelp-back.herokuapp.com/feed/');
+
+    let resJSON = await response.json();
+    setCards(resJSON);
+    console.log('resJSON_FEED', resJSON);
   };
 
+  useEffect(() => {
+     getAllPosts();
+  }, []);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getAllPosts();
+    setTimeout(() => setRefreshing(false), 2000);
+  }, [refreshing]);
+
   return (
-    <View style={style.container}>
+    <View style={[style.container]}>
       <Text
         style={{
-          marginTop: 20,
+          marginTop: 10,
           color: '#fff',
           fontWeight: 'bold',
           fontSize: 13,
@@ -66,15 +90,46 @@ const Feed: React.FC = ({navigation}) => {
       <View
         style={{
           backgroundColor: '#fff',
+          flex: 1,
           marginTop: 20,
+          width: 350,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
         }}>
-        <ScrollView>
-          {Cards.map((card) => {
-            return <Card color={DATA[getColor()]} />;
-          })}
-        </ScrollView>
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor="#A52A2A">
+          <ScrollView onScrollEndDrag={onRefresh}>
+            {card ? (
+              card.map((card) => {
+                return (
+                  <Card
+                    key={card._id}
+                    color="#A52A2A"
+                    phone={card.phone}
+                    bloodtype={card.bloodtype}
+                    hospital={card.hospital}
+                    urgency={card.urgency}
+                    username={card.username}
+                    city={card.city}
+                  />
+                );
+              })
+            ) : (
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <ActivityIndicator
+                  size="large"
+                  color="#A52A2A"></ActivityIndicator>
+              </View>
+            )}
+          </ScrollView>
+        </RefreshControl>
       </View>
     </View>
   );

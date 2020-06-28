@@ -7,7 +7,8 @@ import excelent from '../../../../Assets/4.png';
 // import { Container } from './styles';
 
 const CardType: React.FC = (props: any) => {
-const windowWidth = Dimensions.get('window').width;
+  console.log(props);
+  const windowWidth = Dimensions.get('window').width;
   const ImageBlood = () => {
     switch (props.number) {
       case 4:
@@ -40,7 +41,7 @@ const windowWidth = Dimensions.get('window').width;
         borderRadius: 10,
         alignItems: 'center',
       }}>
-      {ImageBlood()}
+      <Image source={{uri: props.number}} style={{width: 100, height: 140}} />
       <Text
         style={{
           color: '#000',

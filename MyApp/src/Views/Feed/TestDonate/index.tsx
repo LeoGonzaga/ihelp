@@ -6,7 +6,9 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // import { Container } from './styles';
 
@@ -55,15 +57,35 @@ const TestDonate: React.FC = ({navigation}) => {
   let [weight, setWeight] = useState('50');
   let [enableButton, setEnableButton] = useState(false);
 
-  const getUserData = async () => {
-    if (age >= '16' && weight >= '50') {
-      setEnableButton(true);
-    }
-  };
+  useEffect(() => {
+    getData();
+  }, [age, weight]);
 
   useEffect(() => {
-    getUserData();
+    getData();
   }, []);
+
+  const getData = async () => {
+    let age = await AsyncStorage.getItem('@age');
+    let weight = await AsyncStorage.getItem('@weight');
+    let ageValue = await JSON.parse(age);
+    let weightValue = await JSON.parse(weight);
+    console.log('age', ageValue);
+    console.log('peso', weightValue);
+    setAge(ageValue);
+    setWeight(weightValue);
+    if (ageValue && weightValue) {
+      if (ageValue > '16' && weightValue <= '50') {
+        setEnableButton(true);
+      }
+    } else {
+      Alert.alert(
+        'Terminar cadastro!',
+        'Para acessar o teste rápido, preencha o restante do seu perfil',
+      );
+      navigation.navigate('Profile');
+    }
+  };
 
   return (
     <SafeAreaView style={style.container}>
@@ -104,7 +126,7 @@ const TestDonate: React.FC = ({navigation}) => {
             justifyContent: 'center',
           }}>
           <Text style={{color: enableButton ? '#ffff' : '#000'}}>Idade:</Text>
-          <Text style={{color: enableButton ? '#ffff' : '#000'}}>24</Text>
+          <Text style={{color: enableButton ? '#ffff' : '#000'}}>{age}</Text>
         </View>
 
         <View
@@ -117,7 +139,7 @@ const TestDonate: React.FC = ({navigation}) => {
             justifyContent: 'center',
           }}>
           <Text style={{color: enableButton ? '#ffff' : '#000'}}>Peso:</Text>
-          <Text style={{color: enableButton ? '#ffff' : '#000'}}>64</Text>
+          <Text style={{color: enableButton ? '#ffff' : '#000'}}>{weight}</Text>
         </View>
       </View>
 
@@ -137,7 +159,12 @@ const TestDonate: React.FC = ({navigation}) => {
             Prosseguir
           </Text>
         </TouchableOpacity>
-      ) : null}
+      ) : (
+        <Text style={{color: '#fff', textAlign: 'center'}}>
+          Você não possui os requisitos básicos para a doação, infelizmente não
+          podemos continuar
+        </Text>
+      )}
     </SafeAreaView>
   );
 };

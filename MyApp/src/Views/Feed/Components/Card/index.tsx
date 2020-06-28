@@ -9,11 +9,11 @@ const Card: React.FC = (props) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        Linking.openURL(`https://api.whatsapp.com/send?phone=5535997459105`)
+        Linking.openURL(`https://api.whatsapp.com/send?phone=55` + props.phone)
       }>
       <View
         style={{
-          flex:1,
+          flex: 1,
           alignContent: 'center',
           alignItems: 'center',
           backgroundColor: props.color,
@@ -27,25 +27,23 @@ const Card: React.FC = (props) => {
           <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 16}}>
             Nome:{' '}
           </Text>
-          <Text style={{color: '#c9c9c9', fontSize: 16}}>
-            Leonardo Gonzaga Silva
-          </Text>
+          <Text style={{color: '#c9c9c9', fontSize: 16}}>{props.username}</Text>
           <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 16}}>
             Urgencia:{' '}
           </Text>
-          <Text style={{color: '#c9c9c9', fontSize: 16}}>Normal</Text>
+          <Text style={{color: '#c9c9c9', fontSize: 16}}>{props.urgency}</Text>
           <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 16}}>
             Cidade:{' '}
           </Text>
-          <Text style={{color: '#c9c9c9', fontSize: 16}}>Pedralva</Text>
+      <Text style={{color: '#c9c9c9', fontSize: 16}}>{props.city}</Text>
           <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 16}}>
             Hospital:{' '}
           </Text>
-          <Text style={{color: '#c9c9c9', fontSize: 16}}>Homecentro - P.A</Text>
+          <Text style={{color: '#c9c9c9', fontSize: 16}}>{props.hospital}</Text>
         </View>
         <View>
           <Text style={{fontSize: 80, color: '#fff', fontWeight: 'bold'}}>
-            O +
+            {props.bloodtype}
           </Text>
         </View>
       </View>

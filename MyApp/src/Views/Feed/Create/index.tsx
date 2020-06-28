@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   SafeAreaView,
@@ -8,7 +8,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  Picker,
+  Alert,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import {TextInputMask} from 'react-native-masked-text';
+import {ScrollView} from 'react-native-gesture-handler';
 
 // import { Container } from './styles';
 
@@ -52,59 +57,151 @@ const style = StyleSheet.create({
 
 const Create: React.FC = ({navigation}) => {
   const windowWidth = Dimensions.get('window').width;
+  const [blood, setBlood] = useState('0');
+  const [urgency, setUrgency] = useState('0');
+  const [city, setCity] = useState('0');
+  const [hospital, setHospital] = useState('0');
+  const [name, setName] = useState('0');
+  const [token, setToken] = useState('0');
+  const [phone, setPhone] = useState('');
+
+  const createDonate = async (
+    name: string,
+    city: string,
+    hospital: string,
+    blood: string,
+    urgency: string,
+  ) => {
+    console.log(name, city, hospital, blood, urgency);
+
+    if (
+      name == '0' ||
+      city == '0' ||
+      hospital == '0' ||
+      blood == '0' ||
+      urgency == '0'
+    ) {
+      Alert.alert(
+        'Opa!',
+        'Por favor, preencha todos os campos para continuar!',
+      );
+    } else {
+      let response = await fetch(
+        'https://ihelp-back.herokuapp.com/feed/create',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: name,
+            bloodtype: blood,
+            urgency: urgency,
+            city: city,
+            hospital: hospital,
+            phone: phone,
+            token: token,
+          }),
+        },
+      );
+      let resJSON = await response.json();
+      console.log('resFEEDCREATE', resJSON);
+      if (resJSON) {
+        Alert.alert(
+          'Tudo certo!',
+          'Seu pedido foi cadastrado no nosso sistema e já esta disponivel no feed para todos os usuários',
+        );
+        navigation.navigate('Home');
+      }
+    }
+  };
+
+  const getDataUser = async () => {
+    let user = await AsyncStorage.getItem('@user');
+    let value = await JSON.parse(user);
+    console.log('aquiiii', value.token);
+    setToken(value.token);
+  };
+
+  useEffect(() => {
+    getDataUser();
+  }, []);
+
   return (
     <SafeAreaView style={style.container}>
-      <KeyboardAvoidingView
-        behavior="height"
-        style={{width: windowWidth - 50, paddingRight: 14}}>
-        <TextInput
-          secureTextEntry
-          placeholder="Tipo de sangue"
-          style={[style.input, style.layout]}
-          onChangeText={(value) => {}}></TextInput>
-        <TextInput
-          placeholder="Seu nome"
-          style={[style.input, style.layout]}
-          onChangeText={(value) => {}}></TextInput>
+      <ScrollView>
+        <KeyboardAvoidingView
+          behavior="height"
+          style={{width: windowWidth - 50, paddingRight: 14, marginTop: 30}}>
+          <TextInput
+            placeholder="Nome do receptor"
+            style={[style.input, style.layout]}
+            onChangeText={(value) => {
+              setName(value);
+            }}></TextInput>
+          <TextInput
+            placeholder="Cidade"
+            style={[style.input, style.layout]}
+            onChangeText={(value) => {
+              setCity(value);
+            }}></TextInput>
 
-        <TextInput
-          placeholder="Urgencia"
-          style={[style.input, style.layout]}
-          onChangeText={(value) => {}}></TextInput>
-        <TextInput
-          placeholder="Cidade"
-          style={[style.input, style.layout]}
-          onChangeText={(value) => {}}></TextInput>
-        <TextInput
-          secureTextEntry
-          placeholder="Hemocentro"
-          style={[style.input, style.layout]}
-          onChangeText={(value) => {}}></TextInput>
+          <TextInputMask
+            placeholder="Telefone"
+            keyboardType="number-pad"
+            style={[style.input, style.layout]}
+            type={'cel-phone'}
+            options={{
+              maskType: 'BRL',
+              withDDD: true,
+              dddMask: '(99) ',
+            }}
+            value={phone}
+            onChangeText={(value) => setPhone(value)}
+          />
+          <TextInput
+            placeholder="Hemocentro"
+            style={[style.input, style.layout]}
+            onChangeText={(value) => {
+              setHospital(value);
+            }}></TextInput>
+          <Picker
+            selectedValue={blood}
+            style={[style.input, style.layout, {textAlign: 'center'}]}
+            onValueChange={(itemValue, itemIndex) => setBlood(itemValue)}>
+            <Picker.Item label="Tipo de sangue" value="0" />
+            <Picker.Item label="A+" value="A+" />
+            <Picker.Item label="A-" value="A-" />
+            <Picker.Item label="B+" value="B+" />
+            <Picker.Item label="B-" value="B-" />
+            <Picker.Item label="AB+" value="AB+" />
+            <Picker.Item label="AB-" value="AB-" />
+            <Picker.Item label="O+" value="O+" />
+            <Picker.Item label="O-" value="O-" />
+          </Picker>
 
-        {/* <TouchableOpacity
-            style={[
-              style.button,
-              style.layout,
-              {marginTop: 40, backgroundColor: '#fff'},
-            ]}
+          <Picker
+            selectedValue={urgency}
+            style={[style.input, style.layout, {textAlign: 'center'}]}
+            onValueChange={(itemValue, itemIndex) => setUrgency(itemValue)}>
+            <Picker.Item label="Nivel de Urgência" value="0" />
+            <Picker.Item label="Alto" value="Alto" />
+            <Picker.Item label="Médio" value="Médio" />
+            <Picker.Item label="Baixo" value="Baixo" />
+          </Picker>
+
+          <TouchableOpacity
+            style={[style.button, style.layout, {marginTop: 20}]}
             onPress={() => {
-              navigation.navigate('Home');
+              createDonate(name, city, hospital, blood, urgency);
             }}>
-            <Text
-              style={[style.text, {fontSize: 20, margin: 5, color: '#891C1A'}]}>
-              Alterar senha
+            <Text style={[style.text, {fontSize: 20, margin: 5}]}>
+              Criar pedido
             </Text>
-          </TouchableOpacity> */}
-        <TouchableOpacity
-          style={[style.button, style.layout, {marginTop: 20}]}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}>
-          <Text style={[style.text, {fontSize: 20, margin: 5}]}>
-            Criar pedido
-          </Text>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </ScrollView>
     </SafeAreaView>
   );
 };

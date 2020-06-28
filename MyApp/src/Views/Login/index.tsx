@@ -53,7 +53,7 @@ const style = StyleSheet.create({
 const Login: React.FC = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -80,7 +80,9 @@ const Login: React.FC = ({navigation}) => {
           Alert.alert('Ops!', resJSON.message);
         } else {
           await AsyncStorage.setItem('@user', JSON.stringify(resJSON));
-          navigation.navigate('Home');
+          await AsyncStorage.setItem('@pass', JSON.stringify(password));
+          // navigation.navigate('Home');
+          navigation.dispatch(StackActions.replace('Home'));
         }
       }
     } catch (error) {
@@ -88,18 +90,34 @@ const Login: React.FC = ({navigation}) => {
     }
   };
 
-  const getDataUser = async () => {
-    let user = await AsyncStorage.getItem('@user');
-    if (user) {
-      navigation.navigate('Home');
-    } else {
-      setLoading(false);
+  const getDatabaseBlood = async () => {
+    let response = await fetch('https://hemo.teepad.com.br/');
+    let resJSON = await response.json();
+    // console.log('resHOME', resJSON.dataHemominas);
+    if (resJSON.dataHemominas) {
+      await AsyncStorage.setItem(
+        '@hemocentro',
+        JSON.stringify(resJSON.dataHemominas),
+      );
     }
+  };
 
-    console.log('DATA', user);
+  const getDataUser = async () => {
+    setLoading(true);
+    let user = await AsyncStorage.getItem('@user');
+    let pass = await AsyncStorage.getItem('@pass');
+    // getDatabaseBlood();
+    if (user) {
+      // navigation.navigate('Home');
+      navigation.dispatch(StackActions.replace('Home'));
+    }
+    setLoading(false);
+    console.log('pass', pass, 'DATA', user);
   };
 
   useEffect(() => {
+    setPassword('');
+    setEmail('');
     getDataUser();
   }, []);
 
@@ -136,10 +154,6 @@ const Login: React.FC = ({navigation}) => {
             style={[style.button, style.layout, {backgroundColor: '#fff'}]}
             onPress={() => {
               navigation.navigate('Register');
-
-              navigation.dispatch(
-                StackActions.replace('Home', {user: 'Wojtek'}),
-              );
             }}>
             <Text
               style={[style.text, {fontSize: 20, margin: 2, color: '#891C1A'}]}>
