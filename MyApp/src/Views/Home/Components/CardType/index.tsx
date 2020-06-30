@@ -7,7 +7,7 @@ import excelent from '../../../../Assets/4.png';
 // import { Container } from './styles';
 
 const CardType: React.FC = (props: any) => {
-  console.log(props);
+  // console.log(props);
   const windowWidth = Dimensions.get('window').width;
   const ImageBlood = () => {
     switch (props.number) {

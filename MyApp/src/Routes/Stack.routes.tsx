@@ -21,7 +21,11 @@ const StackRoutes: React.FC = () => {
           elevation: 0,
         },
       }}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{title: 'Inicio'}}
+      />
       <Stack.Screen name="Create" component={CreateScreen} />
       <Stack.Screen
         name="Testes"

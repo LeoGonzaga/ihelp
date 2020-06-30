@@ -106,7 +106,6 @@ const Login: React.FC = ({navigation}) => {
     setLoading(true);
     let user = await AsyncStorage.getItem('@user');
     let pass = await AsyncStorage.getItem('@pass');
-    // getDatabaseBlood();
     if (user) {
       // navigation.navigate('Home');
       navigation.dispatch(StackActions.replace('Home'));
@@ -119,6 +118,7 @@ const Login: React.FC = ({navigation}) => {
     setPassword('');
     setEmail('');
     getDataUser();
+    getDatabaseBlood();
   }, []);
 
   const login = (

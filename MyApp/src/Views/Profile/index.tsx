@@ -95,7 +95,7 @@ const Profile: React.FC = ({navigation}) => {
       await AsyncStorage.setItem('@update', JSON.stringify(data));
       await AsyncStorage.setItem('@age', JSON.stringify(age));
       await AsyncStorage.setItem('@weight', JSON.stringify(weight));
-      navigation.navigate('Home');
+      navigation.navigate('Home', {screen: 'Home', params: {user: 'jane'}});
     }
   };
 

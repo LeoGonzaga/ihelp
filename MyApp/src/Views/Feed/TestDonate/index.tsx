@@ -56,10 +56,21 @@ const TestDonate: React.FC = ({navigation}) => {
   let [age, setAge] = useState('24');
   let [weight, setWeight] = useState('50');
   let [enableButton, setEnableButton] = useState(false);
+  let [user, setUser] = useState();
 
   useEffect(() => {
     getData();
   }, [age, weight]);
+
+  const getDataUser = async () => {
+    let user = await AsyncStorage.getItem('@user');
+    let userMap = await JSON.parse(user);
+    if (userMap) {
+      setUser(userMap);
+      // getDatabaseBlood();
+    }
+    console.log('TESTEEEEEEE', user);
+  };
 
   useEffect(() => {
     getData();
@@ -75,7 +86,7 @@ const TestDonate: React.FC = ({navigation}) => {
     setAge(ageValue);
     setWeight(weightValue);
     if (ageValue && weightValue) {
-      if (ageValue > '16' && weightValue <= '50') {
+      if (ageValue >= '16' && weightValue >= '50') {
         setEnableButton(true);
       }
     } else {

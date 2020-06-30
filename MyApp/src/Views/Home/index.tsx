@@ -56,19 +56,20 @@ const Home: React.FC = ({navigation}) => {
   // navigation.dispatch(StackActions.replace('Home'));
   const [entries, setEntries] = useState([]);
   const [date, setDate] = useState('Sem doação');
+  const [user, setUser] = useState();
   const windowWidth = Dimensions.get('window').width;
 
   const getDataUser = async () => {
     let user = await AsyncStorage.getItem('@user');
-    if (user) {
-      // getDatabaseBlood();
+    let userMap = await JSON.parse(user);
+    if (userMap) {
+      setUser(userMap);
+      getDatabaseBlood();
     }
     console.log('DATA', user);
   };
 
   useEffect(() => {
-    // navigation.replace('Home');
-
     getDataUser();
     getDonate();
   }, []);
@@ -94,10 +95,11 @@ const Home: React.FC = ({navigation}) => {
   useEffect(() => {
     setDonate();
   }, [date]);
+
   return (
     <>
       <View style={style.container}>
-        {entries == [] ? (
+        {entries != [] ? (
           <Carousel
             data={entries}
             renderItem={({item}) => {
@@ -123,7 +125,6 @@ const Home: React.FC = ({navigation}) => {
           style={{
             backgroundColor: '#fff',
             width: '100%',
-            flex: 1,
             marginTop: 20,
             borderTopLeftRadius: 40,
             borderTopRightRadius: 40,
@@ -180,7 +181,7 @@ const Home: React.FC = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Testes');
+                navigation.navigate('Testes', {user: user});
               }}
               style={{
                 padding: 10,
