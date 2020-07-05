@@ -20,3 +20,13 @@ Esse aplicativo foi desenvolvido com um intuito de facilitar o encontro de doado
 - Instruções básicas para doação
 
 
+# Layout
+
+<p align="center">
+  <img src="./1.jpeg" width="350" title="Tela de login">
+   <img src="./2.jpeg" width="350" title="Home">
+   <img src="./3.jpeg" width="350" title="Verificação do doador">
+   <img src="./4.jpeg" width="350" title="Feed de pedido de doaçes">
+</p>
+
+
