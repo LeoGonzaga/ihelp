@@ -21,7 +21,7 @@
     "axios": "^0.19.2",
     "moment": "^2.27.0",
     "react": "16.11.0",
-    "react-native": "0.62.2",
+    "react-native": "0.62.3",
     "react-native-calendars": "^1.300.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-masked-text": "^1.13.0",
