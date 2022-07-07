@@ -19,7 +19,7 @@
     "@types/react-native-snap-carousel": "^3.8.1",
     "@types/react-native-vector-icons": "^6.4.5",
     "axios": "^0.19.2",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-calendars": "^1.300.0",
