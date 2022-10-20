@@ -25,7 +25,7 @@
     "react-native-calendars": "^1.300.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-masked-text": "^1.13.0",
-    "react-native-reanimated": "^1.8.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-safe-area-context": "^1.0.0",
     "react-native-screens": "^2.7.0",
     "react-native-snap-carousel": "^3.9.1",
